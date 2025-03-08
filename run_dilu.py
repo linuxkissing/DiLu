@@ -17,6 +17,9 @@ from dilu.driver_agent.reflectionAgent import ReflectionAgent
 test_list_seed = [5838, 2421, 7294, 9650, 4176, 6382, 8765, 1348,
                   4213, 2572, 5678, 8587, 512, 7523, 6321, 5214, 31]
 
+os.environ["http_proxy"] = "http://localhost:7890"
+os.environ["https_proxy"] = "http://localhost:7890"
+
 
 def setup_env(config):
     if config['OPENAI_API_TYPE'] == 'azure':

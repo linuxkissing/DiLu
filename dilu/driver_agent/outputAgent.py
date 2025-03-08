@@ -9,11 +9,11 @@ from langchain.output_parsers import ResponseSchema
 from langchain.output_parsers import StructuredOutputParser
 from langchain.prompts import ChatPromptTemplate, HumanMessagePromptTemplate
 
-from scenario.scenario import Scenario
+from DiLu.dilu.scenario.DBBridge import DBBridge
 
 
 class OutputParser:
-    def __init__(self, sce: Scenario, temperature: float = 0.0) -> None:
+    def __init__(self, sce: DBBridge, temperature: float = 0.0) -> None:
         self.sce = sce
         self.temperature = temperature
         self.llm = AzureChatOpenAI(

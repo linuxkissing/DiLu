@@ -4,7 +4,7 @@ from langchain.vectorstores import Chroma
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.docstore.document import Document
 
-from dilu.scenario.envScenario import EnvScenario
+from DiLu.dilu.scenario.envScenario import EnvScenario
 
 
 class DrivingMemory:

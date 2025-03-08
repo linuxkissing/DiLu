@@ -8,7 +8,7 @@ from langchain.chat_models import AzureChatOpenAI, ChatOpenAI
 from langchain.schema import AIMessage, HumanMessage, SystemMessage
 from langchain.callbacks import get_openai_callback, OpenAICallbackHandler, StreamingStdOutCallbackHandler
 
-from dilu.scenario.envScenario import EnvScenario
+from DiLu.dilu.scenario.envScenario import EnvScenario
 
 
 delimiter = "####"

@@ -1,9 +1,9 @@
 
 ############ Large language model config ############
-OPENAI_API_TYPE: # 'openai' or 'azure'
+OPENAI_API_TYPE: openai
 # below are for Openai
-OPENAI_KEY: # 'sk-xxxxxx' 
-OPENAI_CHAT_MODEL: 'gpt-4-1106-preview' # Alternative models: 'gpt-3.5-turbo-16k-0613' (note: performance may vary)
+OPENAI_KEY: sk-iwXcEE7vLbZllDEzEvsOiJ0hvxI5Gy39l9pltigXK1oeIlug
+OPENAI_CHAT_MODEL: gpt-4-1106-preview # Alternative models: 'gpt-3.5-turbo-16k-0613' (note: performance may vary)
 # below are for Azure OAI service
 AZURE_API_BASE: # https://xxxxxxx.openai.azure.com/
 AZURE_API_VERSION: "2023-07-01-preview"
