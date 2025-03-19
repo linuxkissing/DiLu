@@ -8,17 +8,16 @@ from rich import print
 import gymnasium as gym
 from gymnasium.wrappers import RecordVideo
 
-from dilu.scenario.envScenario import EnvScenario
-from dilu.driver_agent.driverAgent import DriverAgent
-from dilu.driver_agent.vectorStore import DrivingMemory
-from dilu.driver_agent.reflectionAgent import ReflectionAgent
+from DiLu.dilu.scenario.envScenario import EnvScenario
+from DiLu.dilu.driver_agent.driverAgent import DriverAgent
+from DiLu.dilu.driver_agent.vectorStore import DrivingMemory
+from DiLu.dilu.driver_agent.reflectionAgent import ReflectionAgent
 
 
 test_list_seed = [5838, 2421, 7294, 9650, 4176, 6382, 8765, 1348,
                   4213, 2572, 5678, 8587, 512, 7523, 6321, 5214, 31]
 
-os.environ["http_proxy"] = "http://localhost:7890"
-os.environ["https_proxy"] = "http://localhost:7890"
+
 
 
 def setup_env(config):
@@ -33,8 +32,13 @@ def setup_env(config):
         os.environ["OPENAI_API_TYPE"] = config['OPENAI_API_TYPE']
         os.environ["OPENAI_API_KEY"] = config['OPENAI_KEY']
         os.environ["OPENAI_CHAT_MODEL"] = config['OPENAI_CHAT_MODEL']
+    elif config['OPENAI_API_TYPE'] == 'deepseek':
+        os.environ["OPENAI_API_TYPE"] = config['OPENAI_API_TYPE']
+        os.environ["OPENAI_API_KEY"] = config['OPENAI_KEY']
+        os.environ["OPENAI_CHAT_MODEL"] = config['OPENAI_CHAT_MODEL']
     else:
         raise ValueError("Unknown OPENAI_API_TYPE, should be azure or openai")
+
 
     # environment setting
     env_config = {
@@ -70,8 +74,10 @@ def setup_env(config):
 if __name__ == '__main__':
     import warnings
     warnings.filterwarnings("ignore")
-
-    config = yaml.load(open('config.yaml'), Loader=yaml.FullLoader)
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    config_path = os.path.join(script_dir, "config.yaml")
+    with open(config_path, 'r') as file:
+      config = yaml.safe_load(file)
     env_config = setup_env(config)
 
     REFLECTION = config["reflection_module"]

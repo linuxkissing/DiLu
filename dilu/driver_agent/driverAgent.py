@@ -4,9 +4,11 @@ import time
 from rich import print
 from typing import List
 
-from langchain.chat_models import AzureChatOpenAI, ChatOpenAI
-from langchain.schema import AIMessage, HumanMessage, SystemMessage
+from langchain_deepseek import ChatDeepSeek
+
+from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
 from langchain.callbacks import get_openai_callback, OpenAICallbackHandler, StreamingStdOutCallbackHandler
+from langchain_core.callbacks import CallbackManager
 
 from DiLu.dilu.scenario.envScenario import EnvScenario
 
@@ -47,38 +49,34 @@ example_answer = textwrap.dedent(f"""\
 class DriverAgent:
     def __init__(
         self, sce: EnvScenario,
-        temperature: float = 0, verbose: bool = False
+        temperature: float = 0,
+        verbose: bool = False
     ) -> None:
         self.sce = sce
-        oai_api_type = os.getenv("OPENAI_API_TYPE")
-        if oai_api_type == "azure":
-            print("Using Azure Chat API")
-            self.llm = AzureChatOpenAI(
-                callbacks=[
-                    OpenAICallbackHandler()
-                ],
-                deployment_name=os.getenv("AZURE_CHAT_DEPLOY_NAME"),
-                temperature=temperature,
-                max_tokens=2000,
-                request_timeout=60,
-                streaming=True,
-            )
-        elif oai_api_type == "openai":
-            print("Use OpenAI API")
-            self.llm = ChatOpenAI(
-                temperature=temperature,
-                callbacks=[
-                    OpenAICallbackHandler()
-                ],
-                model_name=os.getenv("OPENAI_CHAT_MODEL"),
-                max_tokens=2000,
-                request_timeout=60,
-                streaming=True,
-            )
+        print("Use deepseek API")
+        callback_handler = OpenAICallbackHandler(),
+        callback_manager = CallbackManager([callback_handler]),
+        self.llm = ChatDeepSeek(
+            temperature=temperature,
+            model_name=os.getenv("DEEPSEEK_MODEL_NAME"),
+            max_tokens=2000,
+            request_timeout=60,
+            streaming=True,
+            callback_manager=callback_manager
+        )
+            # self.llm = ChatOpenAI(
+            #     temperature=temperature,
+            #     callbacks=[
+            #         OpenAICallbackHandler()
+            #     ],
+            #     model_name=os.getenv("OPENAI_CHAT_MODEL"),
+            #     max_tokens=2000,
+            #     request_timeout=60,
+            #     streaming=True,
+            # )
+
 
     def few_shot_decision(self, scenario_description: str = "Not available", previous_decisions: str = "Not available", available_actions: str = "Not available", driving_intensions: str = "Not available", fewshot_messages: List[str] = None, fewshot_answers: List[str] = None):
-        # for template usage refer to: https://python.langchain.com/docs/modules/model_io/prompts/prompt_templates/
-
         system_message = textwrap.dedent(f"""\
         You are ChatGPT, a large language model trained by OpenAI. Now you act as a mature driving assistant, who can give accurate and correct advice for human driver in complex urban driving scenarios.
         You will be given a detailed description of the driving scenario of current frame along with your history of previous decisions. You will also be given the available actions you are allowed to take. All of these elements are delimited by {delimiter}.
