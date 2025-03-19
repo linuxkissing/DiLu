@@ -5,7 +5,6 @@ from rich import print
 from typing import List
 
 from langchain_deepseek import ChatDeepSeek
-
 from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
 from langchain.callbacks import get_openai_callback, OpenAICallbackHandler, StreamingStdOutCallbackHandler
 from langchain_core.callbacks import CallbackManager

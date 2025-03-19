@@ -10,9 +10,10 @@ class ReflectionAgent:
         self, temperature: float = 0.0, verbose: bool = False
     ) -> None:
         print("Using Deepseek Chat API")
+        os.getenv
         self.llm = ChatDeepSeek(
             temperature=temperature,
-            model_name="deepseek-chat",
+            model_name=os.getenv("DEEPSEEK_MODEL_NAME"),
             max_tokens=2000,
             request_timeout=60,
         )    

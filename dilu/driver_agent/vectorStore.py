@@ -15,7 +15,7 @@ class DrivingMemory:
             # 'sce_encode' is deprecated for now.
             raise ValueError("encode_type sce_encode is deprecated for now.")
         elif encode_type == 'sce_language':
-            if os.environ["OPENAI_API_TYPE"] == 'azure':
+            if os.environ["DEEPSEEK_API_TYPE"] == 'azure':
                 self.embedding = OpenAIEmbeddings(
                     deployment=os.environ['AZURE_EMBED_DEPLOY_NAME'], chunk_size=1)
             elif os.environ["OPENAI_API_TYPE"] == 'openai':

@@ -21,21 +21,10 @@ test_list_seed = [5838, 2421, 7294, 9650, 4176, 6382, 8765, 1348,
 
 
 def setup_env(config):
-    if config['OPENAI_API_TYPE'] == 'azure':
-        os.environ["OPENAI_API_TYPE"] = config['OPENAI_API_TYPE']
-        os.environ["OPENAI_API_VERSION"] = config['AZURE_API_VERSION']
-        os.environ["OPENAI_API_BASE"] = config['AZURE_API_BASE']
-        os.environ["OPENAI_API_KEY"] = config['AZURE_API_KEY']
-        os.environ["AZURE_CHAT_DEPLOY_NAME"] = config['AZURE_CHAT_DEPLOY_NAME']
-        os.environ["AZURE_EMBED_DEPLOY_NAME"] = config['AZURE_EMBED_DEPLOY_NAME']
-    elif config['OPENAI_API_TYPE'] == 'openai':
-        os.environ["OPENAI_API_TYPE"] = config['OPENAI_API_TYPE']
-        os.environ["OPENAI_API_KEY"] = config['OPENAI_KEY']
-        os.environ["OPENAI_CHAT_MODEL"] = config['OPENAI_CHAT_MODEL']
-    elif config['OPENAI_API_TYPE'] == 'deepseek':
-        os.environ["OPENAI_API_TYPE"] = config['OPENAI_API_TYPE']
-        os.environ["OPENAI_API_KEY"] = config['OPENAI_KEY']
-        os.environ["OPENAI_CHAT_MODEL"] = config['OPENAI_CHAT_MODEL']
+    if config['DEEPSEEK_API_TYPE'] == "deepseek":
+        os.environ["DEEPSEEK_API_KEY"] = config["DEEPSEEK_API_KEY"]
+        os.environ["DEEPSEEK_MODEL_NAME"] = config["DEEPSEEK_MODEL_NAME"]
+        os.environ["DEEPSEEK_API_URL"] = config["DEEPSEEK_API_URL"]
     else:
         raise ValueError("Unknown OPENAI_API_TYPE, should be azure or openai")
 
