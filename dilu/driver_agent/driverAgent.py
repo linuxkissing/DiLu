@@ -53,8 +53,8 @@ class DriverAgent:
     ) -> None:
         self.sce = sce
         print("Use deepseek API")
-        callback_handler = OpenAICallbackHandler(),
-        callback_manager = CallbackManager([callback_handler]),
+        callback_handler = OpenAICallbackHandler()
+        callback_manager = CallbackManager([callback_handler])
         self.llm = ChatDeepSeek(
             temperature=temperature,
             model_name=os.getenv("DEEPSEEK_MODEL_NAME"),
@@ -77,7 +77,7 @@ class DriverAgent:
 
     def few_shot_decision(self, scenario_description: str = "Not available", previous_decisions: str = "Not available", available_actions: str = "Not available", driving_intensions: str = "Not available", fewshot_messages: List[str] = None, fewshot_answers: List[str] = None):
         system_message = textwrap.dedent(f"""\
-        You are ChatGPT, a large language model trained by OpenAI. Now you act as a mature driving assistant, who can give accurate and correct advice for human driver in complex urban driving scenarios.
+        You are DeepSeek, a large language model trained by DeepSeek. Now you act as a mature driving assistant, who can give accurate and correct advice for human driver in complex urban driving scenarios.
         You will be given a detailed description of the driving scenario of current frame along with your history of previous decisions. You will also be given the available actions you are allowed to take. All of these elements are delimited by {delimiter}.
 
         Your response should use the following format:

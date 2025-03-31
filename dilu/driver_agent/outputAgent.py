@@ -19,6 +19,8 @@ class OutputParser:
         self.llm = AzureChatOpenAI(
             deployment_name="GPT35",
             temperature=temperature,
+            openai_api_key=os.environ['DEEPSEEK_API_KEY'],
+            openai_api_base=os.environ['DEEPSEEK_API_URL'],
         )
         # todo: put into a yaml file
         self.response_schemas = [
