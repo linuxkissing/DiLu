@@ -57,6 +57,8 @@ class DriverAgent:
         callback_manager = CallbackManager([callback_handler])
         self.llm = ChatDeepSeek(
             temperature=temperature,
+            api_key=os.getenv("DEEPSEEK_API_KEY"),
+            api_base=os.getenv("DEEPSEEK_API_URL"),
             model_name=os.getenv("DEEPSEEK_MODEL_NAME"),
             max_tokens=2000,
             request_timeout=60,
