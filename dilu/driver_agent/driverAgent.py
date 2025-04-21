@@ -65,16 +65,6 @@ class DriverAgent:
             streaming=True,
             callback_manager=callback_manager
         )
-            # self.llm = ChatOpenAI(
-            #     temperature=temperature,
-            #     callbacks=[
-            #         OpenAICallbackHandler()
-            #     ],
-            #     model_name=os.getenv("OPENAI_CHAT_MODEL"),
-            #     max_tokens=2000,
-            #     request_timeout=60,
-            #     streaming=True,
-            # )
 
 
     def few_shot_decision(self, scenario_description: str = "Not available", previous_decisions: str = "Not available", available_actions: str = "Not available", driving_intensions: str = "Not available", fewshot_messages: List[str] = None, fewshot_answers: List[str] = None):
@@ -125,9 +115,6 @@ class DriverAgent:
         )
         # print("fewshot number:", (len(messages) - 2)/2)
         start_time = time.time()
-        # with get_openai_callback() as cb:
-        # response = self.llm(messages)
-        # print(response.content)
         print("[cyan]Agent answer:[/cyan]")
         response_content = ""
         for chunk in self.llm.stream(messages):

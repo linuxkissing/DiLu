@@ -15,17 +15,13 @@ class DrivingMemory:
             # 'sce_encode' is deprecated for now.
             raise ValueError("encode_type sce_encode is deprecated for now.")
         elif encode_type == 'sce_language':
-            # if os.environ["DEEPSEEK_API_TYPE"] == 'azure':
-            #     self.embedding = OpenAIEmbeddings(
-            #         deployment=os.environ['AZURE_EMBED_DEPLOY_NAME'], chunk_size=1)
-            # elif os.environ["OPENAI_API_TYPE"] == 'openai':
             self.embedding = OpenAIEmbeddings(
                 openai_api_key = os.environ['DEEPSEEK_API_KEY'],
                 openai_api_base = os.environ['DEEPSEEK_API_URL'],
             )
             # else:
             #     raise ValueError(
-            #         "Unknown OPENAI_API_TYPE: should be azure or openai")
+            #         "Unknown DeepSeek API: should be DeepSeek API")
             db_path = os.path.join(
                 './db', 'chroma_5_shot_20_mem/') if db_path is None else db_path
             self.scenario_memory = Chroma(
